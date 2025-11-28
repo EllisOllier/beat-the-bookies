@@ -26,11 +26,4 @@ public class Bookie {
     public float getLossOdd(){
         return this.loss;
     }
-
-    public void displayBookie(){
-        System.out.println("Name: " + name);
-        System.out.println("Win odd: " + win);
-        System.out.println("Draw odd: " + draw);
-        System.out.println("Loss odd: " + loss);
-    }
 }
