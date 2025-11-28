@@ -1,0 +1,22 @@
+For solutions there may be some discrepancies due to floating point precision errors.
+Solutions should be accurate up to 10 significant figures.
+
+Task 1 Small
+Length: 12
+Profit Percentage: 1.3200000
+
+Task 1 Big
+Length: 14719390
+Profit Percentage: 2142173.55045674
+
+Task 2 Small
+Profit Percentage: 0.11000122223580044
+
+Task 2 Big:
+Profit Percentage: 0.33222591362125353
+
+Task 3 Small:
+Profit Percentage: 9.67
+
+Task 3 Big:
+Profit Percentage: 33.0
