@@ -31,13 +31,16 @@ public class Main {
             e.printStackTrace();
         }
 
+        ArrayList<String> allArbs = getAllArbitrages(bookies); // Task 1
         System.out.println("All arbs:");
-        ArrayList<Float> allArbs = getAllArbitrages(bookies); // Task 1
+        for(String arb : allArbs){
+            System.out.println(arb);
+        }
     }
 
     // Task 1
-    public static ArrayList<Float> getAllArbitrages(ArrayList<Bookie> bookies){
-        ArrayList<Float> arbitrages = new ArrayList<>();
+    public static ArrayList<String> getAllArbitrages(ArrayList<Bookie> bookies){
+        ArrayList<String> arbitrages = new ArrayList<>();
         HashMap<String, Float> sortedWinOdds = new HashMap<>();
         HashMap<String, Float> sortedDrawOdds = new HashMap<>();
         HashMap<String, Float> sortedLossOdds = new HashMap<>();
@@ -49,24 +52,18 @@ public class Main {
         }
 
         // sort HashMaps in asc order
-        sortedWinOdds = sortOdds(sortedWinOdds);
-        sortedLossOdds = sortOdds(sortedLossOdds);
-        sortedDrawOdds = sortOdds(sortedDrawOdds);
+        sortedWinOdds = sortOddsAsc(sortedWinOdds);
+        sortedLossOdds = sortOddsAsc(sortedLossOdds);
+        sortedDrawOdds = sortOddsAsc(sortedDrawOdds);
         boolean arb = false;
         for (String i : sortedWinOdds.keySet()) {
-            if(arb){
-                break;
-            }
+            if(arb) break;
             for(String j : sortedDrawOdds.keySet()){
                 for(String k : sortedLossOdds.keySet()){
                     arb = sortedDrawOdds.get(j) + sortedLossOdds.get(k) + sortedWinOdds.get(i) > 1.0000;
                     if(sortedDrawOdds.get(j) + sortedLossOdds.get(k) + sortedWinOdds.get(i) < 1.0000){
-                        float winArb = sortedWinOdds.get(i);
-                        float drawArb = sortedDrawOdds.get(j);
-                        float lossArb = sortedLossOdds.get(k);
-                        float totalArb = winArb + drawArb + lossArb;
-                        System.out.println("bookie Win: " + i + " bookie Draw: " + j + " bookie Loss: " + k + " arb value: " + totalArb);
-                        arbitrages.add(totalArb);
+                        float totalArb = sortedWinOdds.get(i) + sortedDrawOdds.get(j) + sortedLossOdds.get(k);
+                        arbitrages.add("bookie Win: " + i + " bookie Draw: " + j + " bookie Loss: " + k + " arb value: " + totalArb);
                     }
                 }
             }
@@ -109,7 +106,7 @@ public class Main {
     }
 
     // Other methods
-    public static HashMap<String, Float> sortOdds(HashMap<String, Float> givenMap){
+    public static HashMap<String, Float> sortOddsAsc(HashMap<String, Float> givenMap){
         return givenMap.entrySet()
                 .stream()
                 .sorted(Map.Entry.<String, Float>comparingByValue())
